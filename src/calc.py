@@ -31,7 +31,10 @@ class Calc:
         nums = list('a23456789tjqk')
         suit, num = list(hand)
 
-        return (1 << (suits.index(suit) + 16)) | (1 << nums.index(num))
+        try:
+            return (1 << (suits.index(suit) + 16)) | (1 << nums.index(num))
+        except ValueError as ex:
+            return -1
 
 
 def main():
