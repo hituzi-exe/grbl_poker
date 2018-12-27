@@ -27,6 +27,11 @@ class HandRankChecker:
         return -1
 
     def isStraight(self, hand1, hand2, hand3, hand4, hand5):
+        handNum = (hand1 | hand2 | hand3 | hand4 | hand5) & (0x1fff)
+
+        if handNum == 0x1e01:
+            return True
+
         return False
 
     def isFlush(self, hand1, hand2, hand3, hand4, hand5):

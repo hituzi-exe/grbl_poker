@@ -59,3 +59,7 @@ class TescCalc(unittest.TestCase):
     def test_isFlush_false(self):
         c = HandRankChecker()
         self.assertFalse(c.isFlush(262272, 262400, 264192, 262152, 524304,))
+
+    def test_isStraightA_T_true(self):
+        c = HandRankChecker()
+        self.assertTrue(c.isStraight(65537, 69632, 67584, 66560, 66048,))
