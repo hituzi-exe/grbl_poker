@@ -72,6 +72,14 @@ class TescCalc(unittest.TestCase):
                                      0b10000010000000000,
                                      0b10000001000000000,))
 
+    def test_isStraight2_J_false(self):
+        c = HandRankChecker()
+        self.assertFalse(c.isStraight(0b10000000000000001,
+                                      0b10001000000000000,
+                                      0b10000100000000000,
+                                      0b10000010000000000,
+                                      0b10000000000000010,))
+
     def test_isStraight_true(self):
         c = HandRankChecker()
         self.assertTrue(c.isStraight(0b10000000000000001,
