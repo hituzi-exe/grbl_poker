@@ -24,13 +24,19 @@ class Calc:
         return -1
 
     def convert(self, hand):
-        # set(hand1)
-        return -1
+        if hand == 'J0':
+            return Calc.JOKER
+
+        suits = list('sdhc')
+        nums = list('a23456789tjqk')
+        suit, num = list(hand)
+
+        return (1 << (suits.index(suit) + 16)) | (1 << nums.index(num))
 
 
 def main():
     c = Calc()
-    print(c.createDeck())
+    # print(c.createDeck())
 
 
 if __name__ == '__main__':

@@ -5,9 +5,9 @@ from src.calc import Calc
 
 class TescCalc(unittest.TestCase):
 
-    def test_say(self):
-        c = Calc()
-        self.assertEqual(c.getMaxExpectation('', '', '', '', '',), 0)
+    # def test_say(self):
+    #     c = Calc()
+    #     self.assertEqual(c.getMaxExpectation('', '', '', '', '',), 0)
 
     def test_createDeck(self):
         c = Calc()
@@ -25,7 +25,11 @@ class TescCalc(unittest.TestCase):
 
     def test_convert_s1(self):
         c = Calc()
-        self.assertEqual(c.convert('s1'), 0b00010000000000000001)
+        self.assertEqual(c.convert('sa'), 0b00010000000000000001)
+
+    def test_convert_s5(self):
+        c = Calc()
+        self.assertEqual(c.convert('s5'), 0b00010000000000010000)
 
     def test_convert_dt(self):
         c = Calc()
