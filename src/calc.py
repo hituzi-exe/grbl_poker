@@ -30,7 +30,7 @@ class HandRankChecker:
         return False
 
     def isFlush(self, hand1, hand2, hand3, hand4, hand5):
-        return (hand1 & hand2 & hand3 & hand4 & hand5 & (0xf << 16)) > 0
+        return (hand1 & hand2 & hand3 & hand4 & hand5 & (0xf0000)) > 0
 
     def convert(self, hand):
         if hand == 'J0':

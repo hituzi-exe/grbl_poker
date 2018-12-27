@@ -47,3 +47,15 @@ class TescCalc(unittest.TestCase):
     def test_JOKER(self):
         c = Calc()
         self.assertEqual(c.JOKER, 0b11110000000000000000)
+
+    def test_isFlush_true(self):
+        c = HandRankChecker()
+        self.assertTrue(c.isFlush(65537, 65538, 65540, 65544, 65552,))
+
+    def test_isFlush_true_in_joker(self):
+        c = HandRankChecker()
+        self.assertTrue(c.isFlush(65537, 65538, 65540, 65544, 983040,))
+
+    def test_isFlush_false(self):
+        c = HandRankChecker()
+        self.assertFalse(c.isFlush(262272, 262400, 264192, 262152, 524304,))
