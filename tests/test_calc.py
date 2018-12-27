@@ -50,7 +50,11 @@ class TescCalc(unittest.TestCase):
 
     def test_isFlush_true(self):
         c = HandRankChecker()
-        self.assertTrue(c.isFlush(65537, 65538, 65540, 65544, 65552,))
+        self.assertTrue(c.isFlush(0b10000000000000001,
+                                  0b10001000000000000,
+                                  0b10000100000000000,
+                                  0b10000010000000000,
+                                  0b10000001000000000,))
 
     def test_isFlush_true_in_joker(self):
         c = HandRankChecker()
@@ -62,4 +66,32 @@ class TescCalc(unittest.TestCase):
 
     def test_isStraightA_T_true(self):
         c = HandRankChecker()
-        self.assertTrue(c.isStraight(65537, 69632, 67584, 66560, 66048,))
+        self.assertTrue(c.isStraight(0b10000000000000001,
+                                     0b10001000000000000,
+                                     0b10000100000000000,
+                                     0b10000010000000000,
+                                     0b10000001000000000,))
+
+    def test_isStraight_true(self):
+        c = HandRankChecker()
+        self.assertTrue(c.isStraight(0b10000000000000001,
+                                     0b10000000000000010,
+                                     0b10000000000000100,
+                                     0b10000000000001000,
+                                     0b10000000000010000,))
+
+    def test_isStraight_true2(self):
+        c = HandRankChecker()
+        self.assertTrue(c.isStraight(0b10000000000000010,
+                                     0b10000000000000100,
+                                     0b10000000000001000,
+                                     0b10000000000010000,
+                                     0b10000000000100000,))
+
+    def test_isStraight_false(self):
+        c = HandRankChecker()
+        self.assertFalse(c.isStraight(0b10000000000000010,
+                                      0b10000000100000000,
+                                      0b10000000000001000,
+                                      0b10000000000010000,
+                                      0b10000000000100000,))

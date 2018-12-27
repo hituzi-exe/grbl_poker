@@ -32,7 +32,7 @@ class HandRankChecker:
         if handNum == 0x1e01:
             return True
 
-        return False
+        return (int(handNum / (handNum & (-handNum))) == 0x1f)
 
     def isFlush(self, hand1, hand2, hand3, hand4, hand5):
         return (hand1 & hand2 & hand3 & hand4 & hand5 & (0xf0000)) > 0
