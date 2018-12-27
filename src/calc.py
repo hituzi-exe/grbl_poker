@@ -20,8 +20,17 @@ class Calc:
     def getMaxExpectation(self, hand1, hand2, hand3, hand4, hand5):
         return -1
 
+
+class HandRankChecker:
+
     def getHandRank(self, hand1, hand2, hand3, hand4, hand5):
         return -1
+
+    def isStraight(self, hand1, hand2, hand3, hand4, hand5):
+        return False
+
+    def isFlush(self, hand1, hand2, hand3, hand4, hand5):
+        return (hand1 & hand2 & hand3 & hand4 & hand5 & (0xf << 16)) > 0
 
     def convert(self, hand):
         if hand == 'J0':
@@ -34,7 +43,7 @@ class Calc:
         try:
             return (1 << (suits.index(suit) + 16)) | (1 << nums.index(num))
         except ValueError as ex:
-            return -1
+            return (-1)
 
 
 def main():
