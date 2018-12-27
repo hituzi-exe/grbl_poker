@@ -9,7 +9,7 @@ class Calc:
     def createDeck(self):
         # S = suit bit, N = num bit
         # card : SSSS xxxN NNNN NNNN NNNN
-        num = (0x0001 << np.arange(13, dtype=np.int32)) & 0x1fff
+        num = (0x0001 << np.arange(13, dtype=np.int32))
         suit = 0x0001 << (np.arange(4, dtype=np.int32) + 16)
 
         numx, suitx = np.ix_(num, suit)
