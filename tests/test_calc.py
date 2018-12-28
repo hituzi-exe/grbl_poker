@@ -115,3 +115,51 @@ class TescCalc(unittest.TestCase):
     def test_bitCount_case3(self):
         c = HandRankChecker()
         self.assertEqual(c.bitCount(0b1000111001000001), 6)
+
+    def test_pairCount_case1(self):
+        c = HandRankChecker()
+        self.assertEqual(c.pairCount(0b10000000000000010,
+                                     0b10000000100000000,
+                                     0b10000000000001000,
+                                     0b10000000000010000,
+                                     0b10000000000100000,), (1, 0))
+
+    def test_getRateNumOfAKind_case1(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getRateNumOfAKind(0b10000000000000010,
+                                             0b10000000100000000,
+                                             0b10000000000001000,
+                                             0b10000000000010000,
+                                             0b10000000000100000,), -1)
+
+    def test_getRateNumOfAKind_onePair(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getRateNumOfAKind(0b10000000000001000,
+                                             0b10000000100000000,
+                                             0b10000000000001000,
+                                             0b10000000000010000,
+                                             0b10000000000100000,), 0)
+
+    def test_getRateNumOfAKind_TwoPair(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getRateNumOfAKind(0b010000000000001000,
+                                             0b010000000100000000,
+                                             0b100000000000001000,
+                                             0b010000000000010000,
+                                             0b100000000000010000,), 1)
+
+    def test_inJoker_false(self):
+        c = HandRankChecker()
+        self.assertEqual(c.inJoker(0b00010000000000001000,
+                                   0b00010000000100000000,
+                                   0b00100000000000001000,
+                                   0b00010000000000010000,
+                                   0b00100000000000010000,), 0)
+
+    def test_inJoker_true(self):
+        c = HandRankChecker()
+        self.assertEqual(c.inJoker(0b11110000000000000000,
+                                   0b00010000000100000000,
+                                   0b00100000000000001000,
+                                   0b00010000000000010000,
+                                   0b00100000000000010000,), 1)
