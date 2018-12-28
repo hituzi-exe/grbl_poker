@@ -50,7 +50,7 @@ class HandRankChecker:
         if straightFlg:
             return self.rate.straight
 
-        return -1
+        return self.rate.HighCard()
 
     def getRateNumOfAKind(self, hand1, hand2, hand3, hand4, hand5):
         handNum = (hand1 | hand2 | hand3 | hand4 | hand5) & (0x1fff)

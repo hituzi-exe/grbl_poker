@@ -172,6 +172,14 @@ class TescCalc(unittest.TestCase):
                                        0b00010000000000010000,
                                        0b00100000000000010000,), 0)
 
+    def test_getHandRank_TwoPair(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getHandRank(0b00010000000001000000,
+                                       0b01000000000001000000,
+                                       0b00100000000000001000,
+                                       0b00010000000000010000,
+                                       0b00100000000000010000,), 1)
+
     def test_getHandRank_ThreeOfAKind(self):
         c = HandRankChecker()
         self.assertEqual(c.getHandRank(0b11110000000000000000,
