@@ -30,10 +30,25 @@ class HandRankChecker:
         self.NumOfAKindMap = self.createNumOfAKindMap()
 
     def getHandRank(self, hand1, hand2, hand3, hand4, hand5):
-        pair = getPareHand(hand1, hand2, hand3, hand4, hand5)
+        pair = self.getRateNumOfAKind(hand1, hand2, hand3, hand4, hand5)
 
         if pair != self.rate.NotPair():
             return pair
+
+        flushFlg = isFlush(hand1, hand2, hand3, hand4, hand5)
+        straightFlg = isStraight(hand1, hand2, hand3, hand4, hand5)
+
+        if flushFlg & straightFlg:
+            if isRoyalStraightFlush(hand1, hand2, hand3, hand4, hand5):
+                return self.rate.RoyalStraightFlush
+            else:
+                return self.rate.StraightFlush
+
+        if flushFlg:
+            return self.rate.Flush
+
+        if straightFlg:
+            return self.rate.straight
 
         return -1
 
@@ -73,6 +88,12 @@ class HandRankChecker:
 
     def isFlush(self, hand1, hand2, hand3, hand4, hand5):
         return (hand1 & hand2 & hand3 & hand4 & hand5 & (0xf0000)) > 0
+
+    def isRoyalStraightFlush(self, hand1, hand2, hand3, hand4, hand5):
+        if inJoker(hand1, hand2, hand3, hand4, hand5) == 1:
+            return False
+
+        return (hand1 | hand2 | hand3 | hand4 | hand5) == (0x1e01)
 
     def convert(self, hand):
         if hand == 'J0':
