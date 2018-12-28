@@ -50,10 +50,16 @@ class HandRankChecker:
         except ValueError as ex:
             return (-1)
 
+    def bitCount(self, x):
+        # import gmpy2
+        # return gmpy2.popcount(x)
+        return bin(x).count("1")
+
 
 def main():
-    c = Calc()
-    # print(c.createDeck())
+
+    checker = HandRankChecker()
+    checker.bitCount(0b0010011)
 
 
 if __name__ == '__main__':

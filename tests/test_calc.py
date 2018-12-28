@@ -103,3 +103,15 @@ class TescCalc(unittest.TestCase):
                                       0b10000000000001000,
                                       0b10000000000010000,
                                       0b10000000000100000,))
+
+    def test_bitCount_case1(self):
+        c = HandRankChecker()
+        self.assertEqual(c.bitCount(0b00000000010000010), 2)
+
+    def test_bitCount_case2(self):
+        c = HandRankChecker()
+        self.assertEqual(c.bitCount(0b00001110010000010), 5)
+
+    def test_bitCount_case3(self):
+        c = HandRankChecker()
+        self.assertEqual(c.bitCount(0b1000111001000001), 6)
