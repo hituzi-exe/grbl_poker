@@ -25,23 +25,23 @@ class TescCalc(unittest.TestCase):
                                69632, 135168, 266240, 528384, 983040])).all())
 
     def test_convert_s1(self):
-        c = HandRankChecker()
+        c = Calc()
         self.assertEqual(c.convert('sa'), 0b00010000000000000001)
 
     def test_convert_s5(self):
-        c = HandRankChecker()
+        c = Calc()
         self.assertEqual(c.convert('s5'), 0b00010000000000010000)
 
     def test_convert_dt(self):
-        c = HandRankChecker()
+        c = Calc()
         self.assertEqual(c.convert('dt'), 0b00100000001000000000)
 
     def test_convert_Joker(self):
-        c = HandRankChecker()
-        self.assertEqual(c.convert('J0'), 0b11110000000000000000)
+        c = Calc()
+        self.assertEqual(c.convert('J'), 0b11110000000000000000)
 
     def test_convert_exception(self):
-        c = HandRankChecker()
+        c = Calc()
         self.assertEqual(c.convert('hg'), -1)
 
     def test_JOKER(self):
