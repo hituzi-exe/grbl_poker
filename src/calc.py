@@ -35,8 +35,8 @@ class HandRankChecker:
         if pair != self.rate.NotPair():
             return pair
 
-        flushFlg = isFlush(hand1, hand2, hand3, hand4, hand5)
-        straightFlg = isStraight(hand1, hand2, hand3, hand4, hand5)
+        flushFlg = self.isFlush(hand1, hand2, hand3, hand4, hand5)
+        straightFlg = self.isStraight(hand1, hand2, hand3, hand4, hand5)
 
         if flushFlg & straightFlg:
             if isRoyalStraightFlush(hand1, hand2, hand3, hand4, hand5):
@@ -48,7 +48,7 @@ class HandRankChecker:
             return self.rate.Flush
 
         if straightFlg:
-            return self.rate.straight
+            return self.rate.Straight
 
         return self.rate.HighCard()
 

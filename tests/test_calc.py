@@ -198,8 +198,64 @@ class TescCalc(unittest.TestCase):
 
     def test_getHandRank_ThreeOfAKind(self):
         c = HandRankChecker()
+        self.assertEqual(c.getHandRank(0b01000000000000010000,
+                                       0b00010000000100000000,
+                                       0b00100000000000001000,
+                                       0b00010000000000010000,
+                                       0b00100000000000010000,), 1)
+
+    def test_getHandRank_ThreeOfAKind_inJoker(self):
+        c = HandRankChecker()
         self.assertEqual(c.getHandRank(0b11110000000000000000,
                                        0b00010000000100000000,
                                        0b00100000000000001000,
                                        0b00010000000000010000,
                                        0b00100000000000010000,), 1)
+
+    def test_getHandRank_FourOfAKind(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getHandRank(0b10000000000000010000,
+                                       0b01000000000000010000,
+                                       0b00100000000000010000,
+                                       0b00010000000000010000,
+                                       0b00100000000000001000,), 20)
+
+    def test_getHandRank_FourOfAKind_inJoker(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getHandRank(0b11110000000000000000,
+                                       0b01000000000000010000,
+                                       0b00100000000000010000,
+                                       0b00010000000000010000,
+                                       0b00100000000000001000,), 20)
+
+    def test_getHandRank_FullHouse(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getHandRank(0b01000000000000001000,
+                                       0b01000000000000010000,
+                                       0b00100000000000010000,
+                                       0b00010000000000010000,
+                                       0b00100000000000001000,), 10)
+
+    def test_getHandRank_FullHouse_inJoker(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getHandRank(0b01000000000000001000,
+                                       0b01000000000000010000,
+                                       0b11110000000000000000,
+                                       0b00010000000000010000,
+                                       0b00100000000000001000,), 10)
+
+    def test_getHandRank_FiveOfAKind(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getHandRank(0b11110000000000000000,
+                                       0b01000000000000010000,
+                                       0b00100000000000010000,
+                                       0b00010000000000010000,
+                                       0b10000000000000010000,), 60)
+
+    def test_getHandRank_Straight(self):
+        c = HandRankChecker()
+        self.assertTrue(c.getHandRank(0b11110000000000000000,
+                                      0b00010000000010000000,
+                                      0b00100000000000001000,
+                                      0b00010000000000010000,
+                                      0b00100000000000100000,), 3)
