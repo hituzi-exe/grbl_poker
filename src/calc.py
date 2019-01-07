@@ -39,7 +39,7 @@ class HandRankChecker:
         straightFlg = self.isStraight(hand1, hand2, hand3, hand4, hand5)
 
         if flushFlg & straightFlg:
-            if isRoyalStraightFlush(hand1, hand2, hand3, hand4, hand5):
+            if self.isRoyalStraightFlush(hand1, hand2, hand3, hand4, hand5):
                 return self.rate.RoyalStraightFlush
             else:
                 return self.rate.StraightFlush
@@ -59,18 +59,12 @@ class HandRankChecker:
         if bitNum == 5:
             return self.rate.NotPair()
 
-        j = self.inJoker(hand1, hand2, hand3, hand4, hand5)
-
         pairMax, pairNum = self.pairCount(hand1, hand2, hand3, hand4, hand5)
 
-        return self.NumOfAKindMap[pairNum + (pairMax - 1 + j) * 3]
+        if (Calc.JOKER in [hand1, hand2, hand3, hand4, hand5]):
+            pairMax += 1
 
-    def inJoker(self, hand1, hand2, hand3, hand4, hand5):
-        # TODO boolean返すように修正する
-        if Calc.JOKER in [hand1, hand2, hand3, hand4, hand5]:
-            return 1
-
-        return 0
+        return self.NumOfAKindMap[pairNum + (pairMax - 1) * 3]
 
     def createNumOfAKindMap(self):
         return [self.rate.NotPair(), self.rate.NotPair(), self.rate.NotPair(),
@@ -101,7 +95,7 @@ class HandRankChecker:
         return (hand1 & hand2 & hand3 & hand4 & hand5 & (0xf0000)) > 0
 
     def isRoyalStraightFlush(self, hand1, hand2, hand3, hand4, hand5):
-        if inJoker(hand1, hand2, hand3, hand4, hand5) == 1:
+        if (Calc.JOKER in [hand1, hand2, hand3, hand4, hand5]):
             return False
 
         return (hand1 | hand2 | hand3 | hand4 | hand5) == (0x1e01)
