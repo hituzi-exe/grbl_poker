@@ -238,32 +238,80 @@ class TescCalc(unittest.TestCase):
 
     def test_getHandRank_Straight(self):
         c = HandRankChecker()
-        self.assertTrue(c.getHandRank(0b10000000000001000000,
-                                      0b00010000000010000000,
-                                      0b00100000000000001000,
-                                      0b00010000000000010000,
-                                      0b00100000000000100000,), 3)
+        self.assertEqual(c.getHandRank(0b10000000000001000000,
+                                       0b00010000000010000000,
+                                       0b00100000000000001000,
+                                       0b00010000000000010000,
+                                       0b00100000000000100000,), 3)
 
     def test_getHandRank_Straight_inJoker(self):
         c = HandRankChecker()
-        self.assertTrue(c.getHandRank(0b11110000000000000000,
-                                      0b00010000000010000000,
-                                      0b00100000000000001000,
-                                      0b00010000000000010000,
-                                      0b00100000000000100000,), 3)
+        self.assertEqual(c.getHandRank(0b11110000000000000000,
+                                       0b00010000000010000000,
+                                       0b00100000000000001000,
+                                       0b00010000000000010000,
+                                       0b00100000000000100000,), 3)
 
     def test_getHandRank_Flush(self):
         c = HandRankChecker()
-        self.assertTrue(c.getHandRank(0b00010000000100000000,
-                                      0b00010000000010000000,
-                                      0b00010000000000001000,
-                                      0b00010000000000010000,
-                                      0b00010000000000100000,), 4)
+        self.assertEqual(c.getHandRank(0b00010000000100000000,
+                                       0b00010000000010000000,
+                                       0b00010000000000001000,
+                                       0b00010000000000010000,
+                                       0b00010000000000100000,), 4)
 
     def test_getHandRank_Flush_inJoker(self):
         c = HandRankChecker()
-        self.assertTrue(c.getHandRank(0b11110000000000000000,
-                                      0b00010000000010000000,
-                                      0b00010000000000001000,
-                                      0b00010000000000010000,
-                                      0b00010000000000100000,), 4)
+        self.assertEqual(c.getHandRank(0b11110000000000000000,
+                                       0b00010000010000000000,
+                                       0b00010000000000001000,
+                                       0b00010000000000010000,
+                                       0b00010000000000100000,), 4)
+
+    def test_getHandRank_StraightFlush(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getHandRank(0b00010000000010000000,
+                                       0b00010000000001000000,
+                                       0b00010000000000001000,
+                                       0b00010000000000010000,
+                                       0b00010000000000100000,), 25)
+
+    def test_getHandRank_StraightFlush2(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getHandRank(0b00010000000000000001,
+                                       0b00010000000000000010,
+                                       0b00010000000000000100,
+                                       0b00010000000000001000,
+                                       0b00010000000000010000,), 25)
+
+    def test_getHandRank_StraightFlush_inJoker(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getHandRank(0b11110000000000000000,
+                                       0b00010000001000000000,
+                                       0b00010000010000000000,
+                                       0b00010000100000000000,
+                                       0b00010001000000000000,), 250)
+
+    def test_getHandRank_RoyalStraightFlush(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getHandRank(0b00010000000000000001,
+                                       0b00010000001000000000,
+                                       0b00010000010000000000,
+                                       0b00010000100000000000,
+                                       0b00010001000000000000,), 250)
+
+    def test_getHandRank_StraightFlush_inJoker(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getHandRank(0b11110000000000000000,
+                                       0b00010000000001000000,
+                                       0b00010000000000001000,
+                                       0b00010000000000010000,
+                                       0b00010000000000100000,), 25)
+
+    def test_getHandRank_HighCard(self):
+        c = HandRankChecker()
+        self.assertEqual(c.getHandRank(0b10000000100000000000,
+                                       0b00100000000010000000,
+                                       0b00010000000000001000,
+                                       0b00010000000000010000,
+                                       0b00010000000000100000,), 0)

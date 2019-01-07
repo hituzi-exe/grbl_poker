@@ -40,15 +40,15 @@ class HandRankChecker:
 
         if flushFlg & straightFlg:
             if self.isRoyalStraightFlush(hand1, hand2, hand3, hand4, hand5):
-                return self.rate.RoyalStraightFlush
+                return self.rate.RoyalStraightFlush()
             else:
-                return self.rate.StraightFlush
+                return self.rate.StraightFlush()
 
         if flushFlg:
-            return self.rate.Flush
+            return self.rate.Flush()
 
         if straightFlg:
-            return self.rate.Straight
+            return self.rate.Straight()
 
         return self.rate.HighCard()
 
@@ -98,7 +98,7 @@ class HandRankChecker:
         if (Calc.JOKER in [hand1, hand2, hand3, hand4, hand5]):
             return False
 
-        return (hand1 | hand2 | hand3 | hand4 | hand5) == (0x1e01)
+        return (hand1 | hand2 | hand3 | hand4 | hand5) & (0x1fff) == (0x1e01)
 
     def convert(self, hand):
         if hand == 'J0':
