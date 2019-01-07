@@ -50,13 +50,10 @@ class Calc:
                     maxExp = (sumExp / sumCount)
                     maxExpHand = hand
 
-        print(maxExp)
-        print(maxExpHand)
-        print([bin(i) for i in maxExpHand])
-
         elapsed_time = time.time() - start
         print("elapsed_time:{0}".format(elapsed_time) + "[sec]")
-        return -1
+
+        return [self.convert2(i) for i in maxExpHand]
 
     def convert(self, hand):
         if hand == 'J':
@@ -70,6 +67,18 @@ class Calc:
             return (1 << (suits.index(suit) + 16)) | (1 << nums.index(num))
         except ValueError as ex:
             return (-1)
+
+    def convert2(self, hand):
+        if hand == Calc.JOKER:
+            return 'J'
+
+        suits = (hand & 0xf0000) >> 16
+        num = hand & 0x01fff
+
+        suitsStr = list('sdhc')
+        numsStr = list('a23456789tjqk')
+
+        return suitsStr[int(math.log2(suits))] + numsStr[int(math.log2(num))]
 
 
 class HandRankChecker:
@@ -212,9 +221,9 @@ class Rate1000:
 
 def main():
     c = Calc()
-    c.getMaxExpectation('J', 's7', 'h4', 's5', 'sk',)
+    res = c.getMaxExpectation('J', 's7', 'h4', 's5', 'sk',)
 
-    # print(c.createDeck())
+    print(res)
 
 
 if __name__ == '__main__':

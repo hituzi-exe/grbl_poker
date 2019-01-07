@@ -44,6 +44,18 @@ class TescCalc(unittest.TestCase):
         c = Calc()
         self.assertEqual(c.convert('hg'), -1)
 
+    def test_convert2_exception(self):
+        c = Calc()
+        self.assertEqual(c.convert2(0b11110000000000000000), 'J')
+
+    def test_convert2_dt(self):
+        c = Calc()
+        self.assertEqual(c.convert2(0b00100000001000000000), 'dt')
+
+    def test_convert2_s5(self):
+        c = Calc()
+        self.assertEqual(c.convert2(0b00010000000000010000), 's5')
+
     def test_JOKER(self):
         c = Calc()
         self.assertEqual(c.JOKER, 0b11110000000000000000)
