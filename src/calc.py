@@ -26,7 +26,7 @@ class Calc:
 class HandRankChecker:
 
     def __init__(self):
-        self.rate = Rate()
+        self.rate = Rate1000()
         self.NumOfAKindMap = self.createNumOfAKindMap()
 
     def getHandRank(self, hand1, hand2, hand3, hand4, hand5):
@@ -66,6 +66,7 @@ class HandRankChecker:
         return self.NumOfAKindMap[pairNum + (pairMax - 1 + j) * 3]
 
     def inJoker(self, hand1, hand2, hand3, hand4, hand5):
+        # TODO boolean返すように修正する
         if Calc.JOKER in [hand1, hand2, hand3, hand4, hand5]:
             return 1
 
@@ -84,7 +85,17 @@ class HandRankChecker:
         if handNum == 0x1e01:
             return True
 
-        return (int(handNum / (handNum & (-handNum))) == 0x1f)
+        checkbit = int(handNum / (handNum & (-handNum)))
+        if (checkbit == 0x1f):
+            return True
+
+        if not (Calc.JOKER in [hand1, hand2, hand3, hand4, hand5]):
+            return False
+
+        if self.bitCount(checkbit & 0x1f) == 4:
+            return True
+
+        return False
 
     def isFlush(self, hand1, hand2, hand3, hand4, hand5):
         return (hand1 & hand2 & hand3 & hand4 & hand5 & (0xf0000)) > 0
@@ -119,7 +130,7 @@ class HandRankChecker:
         return max(counts), len([i for i in counts if i > 1])
 
 
-class Rate:
+class Rate1000:
     def NotPair(self):
         return -1
 
