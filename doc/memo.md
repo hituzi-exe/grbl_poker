@@ -16,3 +16,6 @@
 
 ### テストコマンド
 python -m unittest tests\test_calc.py
+
+### 処理時間計測
+python -m cProfile -s cumulative file_name.py
