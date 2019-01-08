@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
-from src.cards import Cards
-from src.handrankchecker import HandRankChecker
+from poker.cards import Cards
+from poker.handrankchecker import HandRankChecker
 
 
 class TescCalc(unittest.TestCase):
