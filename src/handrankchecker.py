@@ -42,7 +42,7 @@ class HandRankChecker:
 
         pairMax, pairNum = self.pairCount(hand1, hand2, hand3, hand4, hand5)
 
-        if (src.calc.Cards.JOKER in [hand1, hand2, hand3, hand4, hand5]):
+        if (src.cards.Cards.JOKER in [hand1, hand2, hand3, hand4, hand5]):
             pairMax += 1
 
         return self.NumOfAKindMap[pairNum + (pairMax - 1) * 3]
@@ -64,7 +64,7 @@ class HandRankChecker:
         if (checkbit == 0x1f):
             return True
 
-        if not (src.calc.Cards.JOKER in [hand1, hand2, hand3, hand4, hand5]):
+        if not (src.cards.Cards.JOKER in [hand1, hand2, hand3, hand4, hand5]):
             return False
 
         if self.bitCount(checkbit & 0x1f) == 4:
@@ -79,7 +79,7 @@ class HandRankChecker:
         return (hand1 & hand2 & hand3 & hand4 & hand5 & (0xf0000)) > 0
 
     def isRoyalStraightFlush(self, hand1, hand2, hand3, hand4, hand5):
-        if (src.calc.Cards.JOKER in [hand1, hand2, hand3, hand4, hand5]):
+        if (src.cards.Cards.JOKER in [hand1, hand2, hand3, hand4, hand5]):
             return False
 
         return (hand1 | hand2 | hand3 | hand4 | hand5) & (0x1fff) == (0x1e01)

@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from src.calc import Cards
+from src.cards import Cards
 from src.handrankchecker import HandRankChecker
 
 
