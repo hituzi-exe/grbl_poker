@@ -3,6 +3,7 @@ import time
 import itertools
 
 import poker.cards
+import poker.rate
 
 
 def main():
@@ -12,7 +13,9 @@ def main():
     cards = poker.cards.Cards()
     deck = [cards.convert2(i) for i in cards.createDeck().tolist()]
 
-    checker = poker.handrankchecker.HandRankChecker()
+    rate = poker.rate.Rate0()
+
+    checker = poker.handrankchecker.HandRankChecker(rate)
 
     for d1, d2, d3, d4, d5 in itertools.combinations(deck, 5):
         print('{0},{1},{2},{3},{4}'.format(d1, d2, d3, d4, d5))

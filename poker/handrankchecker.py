@@ -1,13 +1,14 @@
 import math
 import collections
 import poker.calc
+import poker.rate
 from functools import lru_cache
 
 
 class HandRankChecker:
 
-    def __init__(self):
-        self.rate = Rate1000()
+    def __init__(self, r):
+        self.rate = r
         self.NumOfAKindMap = self.createNumOfAKindMap()
 
     def getHandRank(self, hand1, hand2, hand3, hand4, hand5):
@@ -102,47 +103,6 @@ def mylog2(x):
         return 13
 
     return int(math.log2(x))
-
-
-class Rate1000:
-    @lru_cache(maxsize=None)
-    def NotPair(self):
-        return -1
-
-    @lru_cache(maxsize=None)
-    def HighCard(self):
-        return 0
-
-    @lru_cache(maxsize=None)
-    def OnePair(self):
-        return 0
-
-    def TwoPair(self):
-        return 1
-
-    def ThreeOfAKind(self):
-        return 1
-
-    def FullHouse(self):
-        return 10
-
-    def FourOfAKind(self):
-        return 20
-
-    def FiveOfAKind(self):
-        return 60
-
-    def Straight(self):
-        return 3
-
-    def Flush(self):
-        return 4
-
-    def StraightFlush(self):
-        return 25
-
-    def RoyalStraightFlush(self):
-        return 250
 
 
 if __name__ == '__main__':

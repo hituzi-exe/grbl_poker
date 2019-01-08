@@ -2,6 +2,7 @@ import time
 import sys
 import itertools
 
+import poker.rate
 import poker.cards
 import poker.handrankchecker
 
@@ -15,7 +16,9 @@ def getMaxExpectation(hand1, hand2, hand3, hand4, hand5):
     for hand in hands:
         deck.remove(hand)
 
-    checker = poker.handrankchecker.HandRankChecker()
+    rate = poker.rate.Rate1000()
+
+    checker = poker.handrankchecker.HandRankChecker(rate)
     maxExp = 0
     maxExpHand = []
 
