@@ -19,28 +19,25 @@ class HandRankChecker:
         flushFlg = self.isFlush(hand1, hand2, hand3, hand4, hand5)
         straightFlg = self.isStraight(hand1, hand2, hand3, hand4, hand5)
 
+        if not (flushFlg | straightFlg):
+            return self.rate.HighCard()
+
         if flushFlg & straightFlg:
             if self.isRoyalStraightFlush(hand1, hand2, hand3, hand4, hand5):
                 return self.rate.RoyalStraightFlush()
-            else:
-                return self.rate.StraightFlush()
+
+            return self.rate.StraightFlush()
 
         if flushFlg:
             return self.rate.Flush()
 
-        if straightFlg:
-            return self.rate.Straight()
-
-        return self.rate.HighCard()
+        return self.rate.Straight()
 
     def getRateNumOfAKind(self, hand1, hand2, hand3, hand4, hand5):
         if bitCount((hand1 | hand2 | hand3 | hand4 | hand5) & (0x1fff)) == 5:
             return self.rate.NotPair()
 
         pairMax, pairNum = self.pairCount(hand1, hand2, hand3, hand4, hand5)
-
-        if (poker.cards.Cards.JOKER in [hand1, hand2, hand3, hand4, hand5]):
-            pairMax += 1
 
         return self.NumOfAKindMap[pairNum + (pairMax - 1) * 3]
 
@@ -92,7 +89,7 @@ class HandRankChecker:
         for c in cnt:
             cntList[mylog2(c)] += 1
 
-        return max(cntList), len([i for i in cntList if i > 1])
+        return max(cntList) + cntList[13], len([i for i in cntList if i > 1])
 
 
 @lru_cache(maxsize=None)
