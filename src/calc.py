@@ -2,7 +2,7 @@ import time
 import math
 import itertools
 import numpy as np
-import handrankchecker
+import src.handrankchecker
 from functools import lru_cache
 
 

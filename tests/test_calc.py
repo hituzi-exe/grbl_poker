@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
-from src.calc import Calc
-from src.calc import HandRankChecker
+from src.calc import Cards
+from src.handrankchecker import HandRankChecker
 
 
 class TescCalc(unittest.TestCase):
@@ -11,7 +11,7 @@ class TescCalc(unittest.TestCase):
     #     self.assertEqual(c.calcMaxExpectation('', '', '', '', '',), 0)
 
     def test_createDeck(self):
-        c = Calc()
+        c = Cards()
         deck = c.createDeck()
         self.assertTrue(
             (deck == np.array([65537, 131073, 262145, 524289, 65538, 131074,
@@ -25,39 +25,39 @@ class TescCalc(unittest.TestCase):
                                69632, 135168, 266240, 528384, 983040])).all())
 
     def test_convert_s1(self):
-        c = Calc()
+        c = Cards()
         self.assertEqual(c.convert('sa'), 0b00010000000000000001)
 
     def test_convert_s5(self):
-        c = Calc()
+        c = Cards()
         self.assertEqual(c.convert('s5'), 0b00010000000000010000)
 
     def test_convert_dt(self):
-        c = Calc()
+        c = Cards()
         self.assertEqual(c.convert('dt'), 0b00100000001000000000)
 
     def test_convert_Joker(self):
-        c = Calc()
+        c = Cards()
         self.assertEqual(c.convert('J'), 0b11110000000000000000)
 
     def test_convert_exception(self):
-        c = Calc()
+        c = Cards()
         self.assertEqual(c.convert('hg'), -1)
 
     def test_convert2_exception(self):
-        c = Calc()
+        c = Cards()
         self.assertEqual(c.convert2(0b11110000000000000000), 'J')
 
     def test_convert2_dt(self):
-        c = Calc()
+        c = Cards()
         self.assertEqual(c.convert2(0b00100000001000000000), 'dt')
 
     def test_convert2_s5(self):
-        c = Calc()
+        c = Cards()
         self.assertEqual(c.convert2(0b00010000000000010000), 's5')
 
     def test_JOKER(self):
-        c = Calc()
+        c = Cards()
         self.assertEqual(c.JOKER, 0b11110000000000000000)
 
     def test_isFlush_true(self):

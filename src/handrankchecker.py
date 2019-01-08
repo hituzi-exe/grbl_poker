@@ -1,18 +1,16 @@
 import math
 import collections
-from calc import Cards
+import src.calc
 
 
 class HandRankChecker:
 
     def __init__(self):
         self.rate = Rate1000()
-        self.inJoker = False
         self.NumOfAKindMap = self.createNumOfAKindMap()
 
     def getHandRank(self, hand1, hand2, hand3, hand4, hand5):
         pair = self.getRateNumOfAKind(hand1, hand2, hand3, hand4, hand5)
-        self.inJoker = (Cards.JOKER in [hand1, hand2, hand3, hand4, hand5])
 
         if pair != self.rate.NotPair():
             return pair
@@ -43,7 +41,7 @@ class HandRankChecker:
 
         pairMax, pairNum = self.pairCount(hand1, hand2, hand3, hand4, hand5)
 
-        if self.inJoker:
+        if (src.calc.Cards.JOKER in [hand1, hand2, hand3, hand4, hand5]):
             pairMax += 1
 
         return self.NumOfAKindMap[pairNum + (pairMax - 1) * 3]
@@ -65,7 +63,7 @@ class HandRankChecker:
         if (checkbit == 0x1f):
             return True
 
-        if not self.inJoker:
+        if not (src.calc.Cards.JOKER in [hand1, hand2, hand3, hand4, hand5]):
             return False
 
         if self.bitCount(checkbit & 0x1f) == 4:
@@ -77,7 +75,7 @@ class HandRankChecker:
         return (hand1 & hand2 & hand3 & hand4 & hand5 & (0xf0000)) > 0
 
     def isRoyalStraightFlush(self, hand1, hand2, hand3, hand4, hand5):
-        if self.inJoker:
+        if (src.calc.Cards.JOKER in [hand1, hand2, hand3, hand4, hand5]):
             return False
 
         return (hand1 | hand2 | hand3 | hand4 | hand5) & (0x1fff) == (0x1e01)
