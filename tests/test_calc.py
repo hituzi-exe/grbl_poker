@@ -116,6 +116,22 @@ class TescCalc(unittest.TestCase):
                                      0b00010000000000010000,
                                      0b00100000000000100000,))
 
+    def test_isStraight_true4(self):
+        c = HandRankChecker()
+        self.assertTrue(c.isStraight(0b11110000000000000000,
+                                     0b00010000000000000001,
+                                     0b00100000010000000000,
+                                     0b00010000100000000000,
+                                     0b00100001000000000000,))
+
+    def test_isStraight_true5(self):
+        c = HandRankChecker()
+        self.assertTrue(c.isStraight(0b11110000000000000000,
+                                     0b00010000000000000001,
+                                     0b00100000010000000000,
+                                     0b00010000100000000000,
+                                     0b00100000001000000000,))
+
     def test_isStraight_false(self):
         c = HandRankChecker()
         self.assertFalse(c.isStraight(0b00010000000100000000,
@@ -131,6 +147,14 @@ class TescCalc(unittest.TestCase):
                                       0b00100000000000001000,
                                       0b00010000000000010000,
                                       0b00100000000000100000,))
+
+    def test_isStraight_false3(self):
+        c = HandRankChecker()
+        self.assertFalse(c.isStraight(0b11110000000000000000,
+                                      0b00010000000000000001,
+                                      0b00100000010000000000,
+                                      0b00010000000100000000,
+                                      0b00100000001000000000,))
 
     def test_bitCount_case1(self):
         c = HandRankChecker()

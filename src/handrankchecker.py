@@ -69,6 +69,9 @@ class HandRankChecker:
         if self.bitCount(checkbit & 0x1f) == 4:
             return True
 
+        if self.bitCount(checkbit & 0x1e01) == 4:
+            return True
+
         return False
 
     def isFlush(self, hand1, hand2, hand3, hand4, hand5):
