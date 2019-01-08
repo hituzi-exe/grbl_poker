@@ -35,7 +35,7 @@ class HandRankChecker:
 
     def getRateNumOfAKind(self, hand1, hand2, hand3, hand4, hand5):
         handNum = (hand1 | hand2 | hand3 | hand4 | hand5) & (0x1fff)
-        bitNum = self.bitCount(handNum)
+        bitNum = bitCount(handNum)
 
         if bitNum == 5:
             return self.rate.NotPair()
@@ -67,10 +67,10 @@ class HandRankChecker:
         if not (poker.cards.Cards.JOKER in [hand1, hand2, hand3, hand4, hand5]):
             return False
 
-        if self.bitCount(checkbit & 0x1f) == 4:
+        if bitCount(checkbit & 0x1f) == 4:
             return True
 
-        if self.bitCount(checkbit & 0x1e01) == 4:
+        if bitCount(checkbit & 0x1e01) == 4:
             return True
 
         return False
@@ -83,11 +83,6 @@ class HandRankChecker:
             return False
 
         return (hand1 | hand2 | hand3 | hand4 | hand5) & (0x1fff) == (0x1e01)
-
-    def bitCount(self, x):
-        # import gmpy2
-        # return gmpy2.popcount(x)
-        return bin(x).count("1")
 
     def pairCount(self, hand1, hand2, hand3, hand4, hand5):
 
@@ -105,6 +100,13 @@ class HandRankChecker:
         cnt = [x & (0x1fff) for x in [hand1, hand2, hand3, hand4, hand5]]
         values, counts = zip(*collections.Counter(cnt).most_common())
         return max(counts), len([i for i in counts if i > 1])
+
+
+@lru_cache(maxsize=None)
+def bitCount(x):
+    # import gmpy2
+    # return gmpy2.popcount(x)
+    return bin(x).count("1")
 
 
 @lru_cache(maxsize=None)
