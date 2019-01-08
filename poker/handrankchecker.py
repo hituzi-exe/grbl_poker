@@ -101,6 +101,7 @@ def bitCount(x):
 
 @lru_cache(maxsize=None)
 def mylog2(x):
+    # Joker
     if x == 0:
         return 13
 
