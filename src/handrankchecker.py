@@ -1,6 +1,7 @@
 import math
 import collections
 from calc import Calc
+from calc import Cards
 
 
 class HandRankChecker:
@@ -12,7 +13,7 @@ class HandRankChecker:
 
     def getHandRank(self, hand1, hand2, hand3, hand4, hand5):
         pair = self.getRateNumOfAKind(hand1, hand2, hand3, hand4, hand5)
-        self.inJoker = (Calc.JOKER in [hand1, hand2, hand3, hand4, hand5])
+        self.inJoker = (Cards.JOKER in [hand1, hand2, hand3, hand4, hand5])
 
         if pair != self.rate.NotPair():
             return pair

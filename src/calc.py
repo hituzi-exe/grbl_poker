@@ -6,7 +6,7 @@ import handrankchecker
 from functools import lru_cache
 
 
-class Calc:
+class Cards:
 
     # (0x2c000 == 0b1111 0000 0000 0000 0000)
     JOKER = 0xF0000
@@ -20,11 +20,41 @@ class Calc:
         numx, suitx = np.ix_(num, suit)
         deck = suitx + numx
 
-        return np.append(deck.flatten(), Calc.JOKER)
+        return np.append(deck.flatten(), Cards.JOKER)
+
+    def convert(self, hand):
+        if hand == 'J':
+            return Cards.JOKER
+
+        suits = list('sdhc')
+        nums = list('a23456789tjqk')
+        suit, num = list(hand)
+
+        try:
+            return (1 << (suits.index(suit) + 16)) | (1 << nums.index(num))
+        except ValueError as ex:
+            return (-1)
+
+    def convert2(self, hand):
+        if hand == Cards.JOKER:
+            return 'J'
+
+        suits = (hand & 0xf0000) >> 16
+        num = hand & 0x01fff
+
+        suitsStr = list('sdhc')
+        numsStr = list('a23456789tjqk')
+
+        return suitsStr[int(math.log2(suits))] + numsStr[int(math.log2(num))]
+
+
+class Calc:
 
     def getMaxExpectation(self, hand1, hand2, hand3, hand4, hand5):
-        hands = [self.convert(i) for i in [hand1, hand2, hand3, hand4, hand5]]
-        deck = self.createDeck().tolist()
+        cards = Cards()
+
+        hands = [cards.convert(i) for i in [hand1, hand2, hand3, hand4, hand5]]
+        deck = cards.createDeck().tolist()
 
         for hand in hands:
             deck.remove(hand)
@@ -47,32 +77,7 @@ class Calc:
                     maxExp = (sumExp / sumCount)
                     maxExpHand = hand
 
-        return [self.convert2(i) for i in maxExpHand]
-
-    def convert(self, hand):
-        if hand == 'J':
-            return Calc.JOKER
-
-        suits = list('sdhc')
-        nums = list('a23456789tjqk')
-        suit, num = list(hand)
-
-        try:
-            return (1 << (suits.index(suit) + 16)) | (1 << nums.index(num))
-        except ValueError as ex:
-            return (-1)
-
-    def convert2(self, hand):
-        if hand == Calc.JOKER:
-            return 'J'
-
-        suits = (hand & 0xf0000) >> 16
-        num = hand & 0x01fff
-
-        suitsStr = list('sdhc')
-        numsStr = list('a23456789tjqk')
-
-        return suitsStr[int(math.log2(suits))] + numsStr[int(math.log2(num))]
+        return [cards.convert2(i) for i in maxExpHand]
 
 
 def main():
