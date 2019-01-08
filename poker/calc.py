@@ -28,7 +28,7 @@ def getMaxExpectation(hand1, hand2, hand3, hand4, hand5):
                 sumExp += checker.getHandRank(c[0], c[1], c[2], c[3], c[4])
                 sumCount += 1
 
-            if maxExp < (sumExp/sumCount):
+            if maxExp < (sumExp / sumCount):
                 maxExp = (sumExp / sumCount)
                 maxExpHand = hand
 
