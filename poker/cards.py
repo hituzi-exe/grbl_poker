@@ -1,4 +1,3 @@
-
 import math
 import numpy as np
 from functools import lru_cache
@@ -49,3 +48,7 @@ class Cards:
 @lru_cache(maxsize=None)
 def mylog2(x):
     return int(math.log2(x))
+
+
+if __name__ == '__main__':
+    pass

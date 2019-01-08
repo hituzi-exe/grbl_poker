@@ -1,8 +1,8 @@
 import time
-import math
+import sys
 import itertools
-import src.cards
-import src.handrankchecker
+import poker.cards
+import poker.handrankchecker
 
 
 class Calc:
@@ -16,7 +16,7 @@ class Calc:
         for hand in hands:
             deck.remove(hand)
 
-        checker = src.handrankchecker.HandRankChecker()
+        checker = poker.handrankchecker.HandRankChecker()
         maxExp = 0
         maxExpHand = []
 
