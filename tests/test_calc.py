@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 from poker.cards import Cards
-from poker.handrankchecker import HandRankChecker
+from poker.handrankchecker import HandRankChecker, bitCount
 
 
 class TescCalc(unittest.TestCase):
@@ -157,16 +157,13 @@ class TescCalc(unittest.TestCase):
                                       0b00100000001000000000,))
 
     def test_bitCount_case1(self):
-        c = HandRankChecker()
-        self.assertEqual(c.bitCount(0b00000000010000010), 2)
+        self.assertEqual(bitCount(0b00000000010000010), 2)
 
     def test_bitCount_case2(self):
-        c = HandRankChecker()
-        self.assertEqual(c.bitCount(0b00001110010000010), 5)
+        self.assertEqual(bitCount(0b00001110010000010), 5)
 
     def test_bitCount_case3(self):
-        c = HandRankChecker()
-        self.assertEqual(c.bitCount(0b1000111001000001), 6)
+        self.assertEqual(bitCount(0b1000111001000001), 6)
 
     def test_pairCount_case1(self):
         c = HandRankChecker()
