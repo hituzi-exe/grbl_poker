@@ -41,6 +41,19 @@ class HandRankChecker:
 
         return self.NumOfAKindMap[pairNum + (pairMax - 1) * 3]
 
+    def pairCount(self, hand1, hand2, hand3, hand4, hand5):
+        cntList = [0] * 14
+        cnt = [hand1 & (0x1fff),
+               hand2 & (0x1fff),
+               hand3 & (0x1fff),
+               hand4 & (0x1fff),
+               hand5 & (0x1fff)]
+
+        for c in cnt:
+            cntList[mylog2(c)] += 1
+
+        return max(cntList) + cntList[13], len([i for i in cntList if i > 1])
+
     def createNumOfAKindMap(self):
         return [self.rate.NotPair(), self.rate.NotPair(), self.rate.NotPair(),
                 self.rate.NotPair(), self.rate.OnePair(), self.rate.TwoPair(),
@@ -77,19 +90,6 @@ class HandRankChecker:
             return False
 
         return (hand1 | hand2 | hand3 | hand4 | hand5) & (0x1fff) == (0x1e01)
-
-    def pairCount(self, hand1, hand2, hand3, hand4, hand5):
-        cntList = [0] * 14
-        cnt = [hand1 & (0x1fff),
-               hand2 & (0x1fff),
-               hand3 & (0x1fff),
-               hand4 & (0x1fff),
-               hand5 & (0x1fff)]
-
-        for c in cnt:
-            cntList[mylog2(c)] += 1
-
-        return max(cntList) + cntList[13], len([i for i in cntList if i > 1])
 
 
 @lru_cache(maxsize=None)
