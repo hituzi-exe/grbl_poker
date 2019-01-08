@@ -34,10 +34,7 @@ class HandRankChecker:
         return self.rate.HighCard()
 
     def getRateNumOfAKind(self, hand1, hand2, hand3, hand4, hand5):
-        handNum = (hand1 | hand2 | hand3 | hand4 | hand5) & (0x1fff)
-        bitNum = bitCount(handNum)
-
-        if bitNum == 5:
+        if bitCount((hand1 | hand2 | hand3 | hand4 | hand5) & (0x1fff)) == 5:
             return self.rate.NotPair()
 
         pairMax, pairNum = self.pairCount(hand1, hand2, hand3, hand4, hand5)
@@ -57,11 +54,11 @@ class HandRankChecker:
     def isStraight(self, hand1, hand2, hand3, hand4, hand5):
         handNum = (hand1 | hand2 | hand3 | hand4 | hand5) & (0x1fff)
 
-        if handNum == 0x1e01:
-            return True
-
         checkbit = int(handNum / (handNum & (-handNum)))
         if (checkbit == 0x1f):
+            return True
+
+        if checkbit == 0x1e01:
             return True
 
         if not (poker.cards.Cards.JOKER in [hand1, hand2, hand3, hand4, hand5]):
@@ -85,21 +82,17 @@ class HandRankChecker:
         return (hand1 | hand2 | hand3 | hand4 | hand5) & (0x1fff) == (0x1e01)
 
     def pairCount(self, hand1, hand2, hand3, hand4, hand5):
-
-        cntList = [0] * 13
-        cnt = [x & (0x1fff) for x in [hand1, hand2, hand3, hand4, hand5]]
+        cntList = [0] * 14
+        cnt = [hand1 & (0x1fff),
+               hand2 & (0x1fff),
+               hand3 & (0x1fff),
+               hand4 & (0x1fff),
+               hand5 & (0x1fff)]
 
         for c in cnt:
-            if c == 0:
-                continue
             cntList[mylog2(c)] += 1
 
         return max(cntList), len([i for i in cntList if i > 1])
-
-    def pairCount_old1(self, hand1, hand2, hand3, hand4, hand5):
-        cnt = [x & (0x1fff) for x in [hand1, hand2, hand3, hand4, hand5]]
-        values, counts = zip(*collections.Counter(cnt).most_common())
-        return max(counts), len([i for i in counts if i > 1])
 
 
 @lru_cache(maxsize=None)
@@ -111,16 +104,22 @@ def bitCount(x):
 
 @lru_cache(maxsize=None)
 def mylog2(x):
+    if x == 0:
+        return 13
+
     return int(math.log2(x))
 
 
 class Rate1000:
+    @lru_cache(maxsize=None)
     def NotPair(self):
         return -1
 
+    @lru_cache(maxsize=None)
     def HighCard(self):
         return 0
 
+    @lru_cache(maxsize=None)
     def OnePair(self):
         return 0
 
