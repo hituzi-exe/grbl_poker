@@ -74,13 +74,9 @@ class HandRankChecker:
         if not (poker.cards.Cards.JOKER in [hand1, hand2, hand3, hand4, hand5]):
             return False
 
-        if bitCount(checkbit & 0x1f) == 4:
-            return True
-
-        if bitCount(checkbit & 0x1e01) == 4:
-            return True
-
-        return False
+        return checkbit in [0b1111, 0b11101, 0b11011, 0b10111,
+                            0b1110000000001, 0b1011000000001,
+                            0b1101000000001, 0b0110000000001]
 
     def isFlush(self, hand1, hand2, hand3, hand4, hand5):
         return (hand1 & hand2 & hand3 & hand4 & hand5 & (0xf0000)) > 0
