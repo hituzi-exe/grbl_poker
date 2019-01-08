@@ -1,6 +1,7 @@
 import math
 import collections
 import src.calc
+from functools import lru_cache
 
 
 class HandRankChecker:
@@ -96,7 +97,7 @@ class HandRankChecker:
         for c in cnt:
             if c == 0:
                 continue
-            cntList[int(math.log2(c))] += 1
+            cntList[mylog2(c)] += 1
 
         return max(cntList), len([i for i in cntList if i > 1])
 
@@ -104,6 +105,11 @@ class HandRankChecker:
         cnt = [x & (0x1fff) for x in [hand1, hand2, hand3, hand4, hand5]]
         values, counts = zip(*collections.Counter(cnt).most_common())
         return max(counts), len([i for i in counts if i > 1])
+
+
+@lru_cache(maxsize=None)
+def mylog2(x):
+    return int(math.log2(x))
 
 
 class Rate1000:

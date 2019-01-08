@@ -45,7 +45,12 @@ class Cards:
         suitsStr = list('sdhc')
         numsStr = list('a23456789tjqk')
 
-        return suitsStr[int(math.log2(suits))] + numsStr[int(math.log2(num))]
+        return suitsStr[mylog2(suits)] + numsStr[mylog2(num)]
+
+
+@lru_cache(maxsize=None)
+def mylog2(x):
+    return int(math.log2(x))
 
 
 class Calc:
@@ -59,7 +64,7 @@ class Calc:
         for hand in hands:
             deck.remove(hand)
 
-        checker = handrankchecker.HandRankChecker()
+        checker = src.handrankchecker.HandRankChecker()
         maxExp = 0
         maxExpHand = []
 
