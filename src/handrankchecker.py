@@ -1,6 +1,5 @@
 import math
 import collections
-from calc import Calc
 from calc import Cards
 
 
@@ -69,11 +68,8 @@ class HandRankChecker:
         if not self.inJoker:
             return False
 
-        if checkbit & (checkbit - 1) == 0:
+        if self.bitCount(checkbit & 0x1f) == 4:
             return True
-
-        # if self.bitCount(checkbit & 0x1f) == 4:
-        #     return True
 
         return False
 
@@ -145,3 +141,7 @@ class Rate1000:
 
     def RoyalStraightFlush(self):
         return 250
+
+
+if __name__ == '__main__':
+    pass
