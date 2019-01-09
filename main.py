@@ -22,7 +22,6 @@ def search():
     deck = [cards.convert2(i) for i in cards.createDeck().tolist()]
 
     rate = poker.rate.Rate0()
-
     checker = poker.handrankchecker.HandRankChecker(rate)
 
     for d1, d2, d3, d4, d5 in itertools.combinations(deck, 5):
@@ -36,10 +35,29 @@ def search():
             continue
 
         res = poker.calc.getMaxExpectation(d1, d2, d3, d4, d5)
+
         print(res)
 
         if len(res) == 0:
             return
+
+
+def cacheHit(cacheList, d1, d2, d3, d4, d5):
+    for cache in cacheList:
+        if cacheHit1(cache,  d1, d2, d3, d4, d5):
+            return True
+
+    return False
+
+
+def cacheHit1(cache, d1, d2, d3, d4, d5):
+    for c in cache:
+        if c in [d1, d2, d3, d4, d5]:
+            pass
+        else:
+            return False
+
+    return True
 
 
 if __name__ == '__main__':
