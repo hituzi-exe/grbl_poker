@@ -24,7 +24,7 @@ class Cards:
             return Cards.JOKER
 
         suits = list('sdhc')
-        nums = list('a23456789tjqk')
+        nums = list('123456789tjqk')
         suit, num = list(hand)
 
         try:
@@ -40,7 +40,7 @@ class Cards:
         num = hand & 0x01fff
 
         suitsStr = list('sdhc')
-        numsStr = list('a23456789tjqk')
+        numsStr = list('123456789tjqk')
 
         return suitsStr[mylog2(suits)] + numsStr[mylog2(num)]
 
