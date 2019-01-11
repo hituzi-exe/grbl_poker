@@ -7,7 +7,7 @@ from functools import lru_cache
 
 class HandRankChecker:
 
-    def __init__(self, r):
+    def __init__(self, r=poker.rate.Rate1000()):
         self.rate = r
         self.NumOfAKindMap = self.createNumOfAKindMap()
 
