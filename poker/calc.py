@@ -1,6 +1,8 @@
+import os
 import time
 import sys
 import itertools
+import subprocess
 
 import poker.rate
 import poker.cards
@@ -8,6 +10,36 @@ import poker.handrankchecker
 
 
 def getMaxExpectation(hand1, hand2, hand3, hand4, hand5):
+    if not os.path.isfile('poker/GrblPokerVB_NET.exe '):
+        return getMaxExpectation2(hand1, hand2, hand3, hand4, hand5)
+
+    cmd = 'poker/GrblPokerVB_NET.exe {0} {1} {2} {3} {4}'.format(hand1,
+                                                                 hand2,
+                                                                 hand3,
+                                                                 hand4,
+                                                                 hand5)
+    returncode = subprocess.call(cmd)
+
+    holdHands = []
+    if 0b00001 & returncode:
+        holdHands.append(hand1)
+
+    if 0b00010 & returncode:
+        holdHands.append(hand2)
+
+    if 0b00100 & returncode:
+        holdHands.append(hand3)
+
+    if 0b01000 & returncode:
+        holdHands.append(hand4)
+
+    if 0b10000 & returncode:
+        holdHands.append(hand5)
+
+    return holdHands
+
+
+def getMaxExpectation2(hand1, hand2, hand3, hand4, hand5):
     cards = poker.cards.Cards()
 
     hands = [cards.convert(i) for i in [hand1, hand2, hand3, hand4, hand5]]
